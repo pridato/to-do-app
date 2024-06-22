@@ -1,8 +1,9 @@
 import { User } from "./user";
 
 export interface RestMessage {
+  code: number;
   message: string;
-  datos: User;
+  data: User;
   error: string | null;
   otherData: any;
   token?: string;

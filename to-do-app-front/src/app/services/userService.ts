@@ -9,11 +9,6 @@ import { RestMessage } from '../model/restMessage';
  * @returns promesa con el mensaje de respuesta, o trae error directamente de la api o el propio usuario entero
  */
 export const login = async (data: LoginData): Promise<RestMessage> => {
-  try {
-    const response = await axios.post(`${userServiceUrl}/login`, data);
-    return response.data;
-  }
-  catch (error:any) {
-    return error.response.data;
-  }
+  const response = await axios.get(`${userServiceUrl}/login?email=${data.email}&password=${data.password}`)
+  return response.data
 };

@@ -12,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [formError, setFormError] = useState("");
 
   /**
    * comprueba que el email sea valido
@@ -54,7 +55,10 @@ export default function Login() {
         console.log(response);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
+        if(error.response.data.message){
+          setFormError(error.response.data.message)
+        }
       })
   };
 
@@ -75,6 +79,8 @@ export default function Login() {
             </svg>
             <span>Sign in with Google</span>
           </button>
+
+          { formError && <p className="text-red-500 text-sm mb-5">{formError}</p> }
 
           {/* email form */}
           <div className="relative">
