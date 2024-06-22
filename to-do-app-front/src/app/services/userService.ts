@@ -12,7 +12,8 @@ export const login = async (data: LoginData): Promise<RestMessage> => {
   try {
     const response = await axios.post(`${userServiceUrl}/login`, data);
     return response.data;
-  } catch (error: any) {
-    throw new Error(error?.response?.data?.message || "Login failed");
+  }
+  catch (error:any) {
+    return error.response.data;
   }
 };

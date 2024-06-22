@@ -6,6 +6,7 @@ import LinearProgress from "@mui/joy/LinearProgress";
 import Typography from "@mui/joy/Typography";
 import { minLength } from "@/app/consts";
 import Image from "next/image";
+import { login } from "@/app/services/userService";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -43,11 +44,18 @@ export default function Login() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     validateEmail(email)
-    if (emailError || password.length < minLength/2 || !email) {
+    if (emailError || password.length < minLength / 2 || !email) {
       return;
     }
 
-    console.log("Email: ", email, "Password: ", password);
+    // si todo ok hace el login de userService recoge o error o el usuario
+    login({ email, password })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   };
 
   return (
@@ -62,7 +70,7 @@ export default function Login() {
           <button type="button" className="py-2 mb-5 px-4 flex justify-center items-center gap-5 text-lg text-black hover:bg-gray-200 w-full transition ease-in duration-200 text-center font-semibold rounded-lg border">
             {/* Icono de google */}
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-google" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ff4500" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" />
             </svg>
             <span>Sign in with Google</span>
