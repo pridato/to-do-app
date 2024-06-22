@@ -1,8 +1,8 @@
-export default function Home() {
+export default function Error() {
   return (
     <main>
       <div className="bg-black flex flex-col items-center justify-center text-white h-screen">
-        todo-ist
+        404
       </div>
     </main>
   );
