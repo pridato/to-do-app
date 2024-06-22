@@ -7,12 +7,15 @@ import Typography from "@mui/joy/Typography";
 import { minLength } from "@/app/consts";
 import Image from "next/image";
 import { login } from "@/app/services/userService";
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [formError, setFormError] = useState("");
+  const router = useRouter();
 
   /**
    * comprueba que el email sea valido
@@ -52,7 +55,8 @@ export default function Login() {
     // si todo ok hace el login de userService recoge o error o el usuario
     login({ email, password })
       .then((response) => {
-        console.log(response);
+        router.push('/app');
+
       })
       .catch((error) => {
         console.log(error.response.data);
