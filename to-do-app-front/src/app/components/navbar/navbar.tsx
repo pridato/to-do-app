@@ -1,12 +1,14 @@
-import Image from "next/image";
 import Avatar from '@mui/joy/Avatar';
 
-export default function Navbar() {
+interface NavbarProps {
+  toggleNavbar: () => void;
+  isOpened: boolean
+}
+
+const Navbar: React.FC<NavbarProps> = ({ toggleNavbar, isOpened }) => {
   return (
-    <div className="col-span-1 bg-[#FCFAF8] p-4">
-      {/* Sidebar title */}
+    <div>
       <div className="flex items-center justify-between ">
-        {/* perfil */}
         <button className="flex items-center justify-center hover:bg-gray-200 rounded-lg px-4 py-1">
           <Avatar color="danger">DA</Avatar>
           <span className="ml-4">david...</span>
@@ -27,7 +29,7 @@ export default function Navbar() {
           </button>
 
           {/* menu */}
-          <button className="hover:bg-gray-200 rounded-3xl px-2 py-2">
+          <button onClick={toggleNavbar} className="hover:bg-gray-200 rounded-3xl px-2 py-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="cursor-pointer icon icon-tabler icon-tabler-layout-sidebar" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#252424" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
@@ -37,7 +39,7 @@ export default function Navbar() {
         </div>
 
       </div>
-      {/* Sidebar links */}
+      {/* menus de las opciones posibles */}
       <ul>
         <li className="mb-2"><a href="#" className="hover:underline">Link 1</a></li>
         <li className="mb-2"><a href="#" className="hover:underline">Link 2</a></li>
@@ -47,3 +49,4 @@ export default function Navbar() {
   )
 }
 
+export default Navbar;
