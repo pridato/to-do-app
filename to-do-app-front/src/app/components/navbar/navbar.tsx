@@ -7,7 +7,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
   return (
-    <div className='bg-[#FCFAF8] '>
+    <div className='bg-[#FCFAF8] shadow-md '>
       <div className="flex items-center justify-center gap-4 mt-4">
         <button className="flex items-center justify-center hover:bg-gray-200 rounded-lg px-4 py-1">
           <Avatar color="danger">DA</Avatar>
