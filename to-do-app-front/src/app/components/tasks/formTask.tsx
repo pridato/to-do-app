@@ -38,7 +38,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
   return (
     <div className="mt-4 border rounded-md shadow-sm w-[20vw] px-4 py-2">
       <input value={name} onChange={(e) => setName(e.target.value)} ref={inputRef} type="text" placeholder="Nombre de la tarea" className="text-xl text-gray-400 font-semibold focus:outline-none" />
-      <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Descripción" className=" text-gray-400 text-sm focus:outline-none" />
+      <textarea value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Descripción" className=" text-gray-400 text-sm focus:outline-none"></textarea>
       {/** card fecha vencimiento y prioridad*/}
       <div className="flex items-start justify-start gap-3">
         <CardTask task={TaskKeys.DueDate} />
