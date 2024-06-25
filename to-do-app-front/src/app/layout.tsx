@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import { ChakraProvider } from '@chakra-ui/react'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="es" >
       <body suppressHydrationWarning={true} className={inter.className} >
-        <div className="">
+        <ChakraProvider>
           {children}
-        </div>
+        </ChakraProvider>
       </body>
     </html>
   );
