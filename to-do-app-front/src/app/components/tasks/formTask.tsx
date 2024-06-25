@@ -14,7 +14,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
 
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-
+  
 
   /**
    * useEffect: Hook que se ejecuta después de que el componente se renderiza. Se actualiza cuando showTaskForm cambia.
@@ -32,6 +32,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
    */
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    
     setShowTaskForm(false);
   }
 

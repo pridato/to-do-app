@@ -1,15 +1,14 @@
 "use client";
 import { useState } from "react";
-import Stack from "@mui/joy/Stack";
-import Input from "@mui/joy/Input";
-import LinearProgress from "@mui/joy/LinearProgress";
-import Typography from "@mui/joy/Typography";
 import { minLength } from "@/app/consts";
 import Image from "next/image";
 import { login } from "@/app/services/userService";
 import { useRouter } from 'next/navigation';
+import useUserStore from "@/app/context/userStore";
 
 export default function Login() {
+
+  const { addUser } = useUserStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +41,21 @@ export default function Login() {
   }
 
   /**
+   * metodo para manejar el cambio de password y comprobar si hay errores
+   * @param e html input event
+   */
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    // password tiene que tener 8 digitos, 1 mayus y 1 numero
+    if (e.target.value.length < minLength / 2) {
+      setFormError("Password must be at least 8 characters long");
+    }
+    else {
+      setFormError("");
+    }
+  }
+
+  /**
    * metodo para accionar el login del usuario
    * @param e buton login
    */
@@ -55,8 +69,8 @@ export default function Login() {
     // si todo ok hace el login de userService recoge o error o el usuario
     login({ email, password })
       .then((response) => {
+        addUser(response.data)
         router.push('/app');
-
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -124,50 +138,14 @@ export default function Login() {
           <div className="mt-10">
             <label htmlFor="password">Contraseña</label>
             {/* Password input */}
-            <Stack spacing={0.5} sx={{ "--hue": Math.min(password.length * 10, 120) }}>
-              <Input
-                type="password"
-                startDecorator={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="icon icon-tabler icon-tabler-key"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="#9e9e9e"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" />
-                    <path d="M15 9h.01" />
-                  </svg>
-                }
-                placeholder="Escribir tu contraseña..."
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <LinearProgress
-                determinate
-                size="sm"
-                value={Math.min((password.length * 100) / minLength, 100)}
-                sx={{
-                  bgcolor: "background.level3",
-                  color: "hsl(var(--hue) 80% 40%)",
-                }}
-              />
-              <Typography
-                level="body-xs"
-                sx={{ alignSelf: "flex-end", color: "hsl(var(--hue) 80% 30%)" }}
-              >
-                {password.length < 3 && "Muy débil"}
-                {password.length >= 3 && password.length < 6 && "Débil"}
-                {password.length >= 6 && password.length < 10 && "Fuerte"}
-                {password.length >= 10 && "Muy fuerte"}
-              </Typography>
-            </Stack>
+            <input 
+              type="password"  
+              className={`rounded-lg border flex-1 appearance-none w-full py-2 px-4 text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${formError ? "ring-red-500" : "border-gray-300"}`} 
+              name="password"
+              placeholder="Tu contraseña..."
+              value={password}
+              onChange={handlePasswordChange}
+            />
           </div>
 
           {/* Boton de login */}

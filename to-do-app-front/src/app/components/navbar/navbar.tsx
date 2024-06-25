@@ -1,11 +1,20 @@
 import { Avatar} from '@chakra-ui/react'
 import OptionsNavbar from './optionsNavbar';
+import { useEffect } from 'react';
+import useUserStore from '@/app/context/userStore';
 
 interface NavbarProps {
   toggleNavbar: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
+
+  const user = useUserStore();
+
+  useEffect(() => {
+    console.log(user);
+  })
+
   return (
     <div className='bg-[#FCFAF8] shadow-md '>
       <div className="flex items-center justify-center gap-4 mt-4">
