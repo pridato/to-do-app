@@ -5,6 +5,7 @@ import { useState } from "react";
 import { addTask } from "@/app/services/taskService";
 import { RestMessage } from "@/app/model/restMessage";
 import useToastService from "@/app/services/toastService";
+import useUserStore from "@/app/context/userStore";
 
 interface formTasksProps {
   showTaskForm: boolean;
@@ -18,7 +19,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   
-
+  const user = useUserStore();
   /**
    * useEffect: Hook que se ejecuta después de que el componente se renderiza. Se actualiza cuando showTaskForm cambia.
    * la funcion ejecuta si el ref se aplica correctamente al input se enfoca en el input.
@@ -34,9 +35,11 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
    * @param e html input event
    */
   const handleSubmit = (e: any) => {
+    console.log(user.user?.id)
     e.preventDefault();
     addTask({
       name: name, 
+      userId: user.user?.id!,
       description: description, 
       dueDate: new Date(),
       completed: false
