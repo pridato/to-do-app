@@ -35,6 +35,5 @@ public class Task {
     @Column(nullable = false)
     private Boolean completed;
 
-    @Column(nullable = false)
     private Long projectId;
 }

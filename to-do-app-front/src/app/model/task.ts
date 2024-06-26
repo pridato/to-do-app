@@ -1,4 +1,3 @@
-import { Project } from "./project";
 
 export interface Task {
   id?: string | number,
@@ -10,5 +9,5 @@ export interface Task {
   reminders?: Date[],
   tags?: string[],
   completed: boolean,
-  project?: Project
+  projectId?: number
 }

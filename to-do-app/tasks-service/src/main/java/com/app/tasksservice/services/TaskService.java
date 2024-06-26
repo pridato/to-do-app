@@ -38,14 +38,11 @@ public class TaskService {
         RestMessage restMessage = new RestMessage();
         try {
             // se obtiene el usuario por su id
-            UserDTO user = getUserById(task.getUserId());
+            //TODO error da el feign client
+            //UserDTO user = getUserById(task.getUserId());
 
             // se valida que el usuario exista
-            if (user == null) {
-                restMessage.setMessage("El usuario no existe");
-                restMessage.setCode(404);
-                return restMessage;
-            }
+
 
             taskRepository.save(task);
             restMessage.setMessage("Tarea creada correctamente");

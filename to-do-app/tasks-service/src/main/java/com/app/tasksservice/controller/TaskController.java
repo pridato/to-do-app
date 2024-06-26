@@ -24,7 +24,6 @@ public class TaskController {
         try {
             return ResponseEntity.status(restMessage.getCode()).body(restMessage);
         } catch (Exception ex) {
-            System.err.println("Error al crear la tarea");
             return ResponseEntity.status(500).body(restMessage);
         }
     }

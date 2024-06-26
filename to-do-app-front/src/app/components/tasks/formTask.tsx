@@ -42,12 +42,13 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
       userId: user.user?.id!,
       description: description, 
       dueDate: new Date(),
-      completed: false
+      completed: false,
+      projectId: 1
     }).then((resp:RestMessage) => {
       toastService.showSuccess(resp.message);
       setShowTaskForm(false);
     }).catch((error) => {
-      toastService.showError(error.message);
+      toastService.showError(error.response.data.message);
       console.log(error)
     })
 
