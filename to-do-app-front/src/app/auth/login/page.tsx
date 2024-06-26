@@ -5,11 +5,12 @@ import Image from "next/image";
 import { login } from "@/app/services/userService";
 import { useRouter } from 'next/navigation';
 import useUserStore from "@/app/context/userStore";
+import useToastService from "@/app/services/toastService";
 
 export default function Login() {
 
   const { addUser } = useUserStore();
-
+  const toastService = useToastService();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -75,9 +76,12 @@ export default function Login() {
         router.push('/app');
       })
       .catch((error) => {
-        console.log(error.response.data);
-        if(error.response.data.message){
+        if(error?.response?.data?.message){
+          toastService.showError(error.response.data.message);
           setFormError(error.response.data.message)
+        } else {
+          toastService.showError("An error occurred");
+          setFormError("An error occurred")
         }
       })
   };
