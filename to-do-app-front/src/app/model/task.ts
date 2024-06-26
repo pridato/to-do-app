@@ -6,8 +6,6 @@ export interface Task {
   description: string,
   dueDate?: Date,
   priority?: number, // 1, 2, 3
-  reminders?: Date[],
-  tags?: string[],
   completed: boolean,
   projectId?: number
 }

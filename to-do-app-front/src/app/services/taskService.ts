@@ -12,3 +12,13 @@ export async function addTask(task: Task): Promise<RestMessage> {
   const response = await axios.post(`${taskServiceUrl}/add`, task)
   return response.data
 }
+
+/**
+ * metodo para obtener todas las tareas del usuario logueado
+ * @param userId id del usuario en number
+ * @returns lista de todas las tareas del usuario
+ */
+export async function getTasksUser(userId:number): Promise<Task[]> {
+  const response = await axios.get(`${taskServiceUrl}/get-tasks-by-user?userId=${userId}`)
+  return response.data
+}

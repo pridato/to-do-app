@@ -1,10 +1,40 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormTasks from "../components/tasks/formTask";
+import { getTasksUser } from "../services/taskService";
+import useUserStore from "../context/userStore";
+import { Task } from "../model/task";
+import useToastService from "../services/toastService";
 
 export default function App() {
 
   const [isEditing, setIsEditing] = useState(false)
+  const [tasks, setTasks] = useState<Task[]>([])
+  const user = useUserStore();
+  
+  // para evitar problemas de renderizado infinito que nos probocaba el uso de useToastService directamente
+  // creamos una referencia para el hook
+  const toastServiceRef = useRef(useToastService());
+  const toastService = toastServiceRef.current;
+
+  useEffect(() => {
+    if (!user?.user?.id) return
+
+    /**
+     * Función para obtener las tareas del usuario
+     */
+    const fetchTasks = async () => {
+      try {
+        const data = await getTasksUser(user?.user?.id!);
+        setTasks(data);
+      } catch (error) {
+        toastService.showError('Error al obtener las tareas');
+      }
+    }
+
+    fetchTasks();
+
+  }, [user?.user?.id, toastService]);
 
   const handleEdit = () => {
     setIsEditing(true)

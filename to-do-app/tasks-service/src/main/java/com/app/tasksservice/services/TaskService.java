@@ -64,6 +64,7 @@ public class TaskService {
      * @return lista de las tareas del usuario en cuestión
      */
     public List<Task> getTasksByIdUser(Long userId) {
+        System.out.println(taskRepository.findByUserId(userId));
         return taskRepository.findByUserId(userId);
     }
 }

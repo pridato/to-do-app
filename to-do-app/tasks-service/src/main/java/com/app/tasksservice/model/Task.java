@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name = "TASKS")
 @Data
 public class Task {
     @Id
@@ -25,12 +25,6 @@ public class Task {
     private Date dueDate;
 
     private Integer priority; // 1, 2, 3
-
-    @ElementCollection
-    private List<Date> reminders;
-
-    @ElementCollection
-    private List<String> tags;
 
     @Column(nullable = false)
     private Boolean completed;
