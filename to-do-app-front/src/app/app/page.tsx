@@ -5,13 +5,14 @@ import { getTasksUser } from "../services/taskService";
 import useUserStore from "../context/userStore";
 import { Task } from "../model/task";
 import useToastService from "../services/toastService";
+import CardTask from "../components/tasks/card-task";
 
 export default function App() {
 
   const [isEditing, setIsEditing] = useState(false)
   const [tasks, setTasks] = useState<Task[]>([])
   const user = useUserStore();
-  
+
   // para evitar problemas de renderizado infinito que nos probocaba el uso de useToastService directamente
   // creamos una referencia para el hook
   const toastServiceRef = useRef(useToastService());
@@ -51,19 +52,24 @@ export default function App() {
       </div>
 
       {
-        /** boton añadir tareas */
-        !isEditing ? (
-          <button onClick={handleEdit} className="text-[#A2A2A2] hover:text-[#AB2C12] mt-4  gap-2 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#AB2C12" fill="none" strokeLinecap="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 5l0 14" />
-              <path d="M5 12l14 0" />
-            </svg>
-            <span>Añadir tarea</span>
-          </button>
+        tasks.length > 0 ? (
+          tasks.map((task) => (
+            <CardTask task={task} key={task.id} />
+          ))
         )
           : (
-            <FormTasks showTaskForm={isEditing} setShowTaskForm={setIsEditing} />
+            tasks.length === 0 && !isEditing ? (
+              <button onClick={handleEdit} className="text-[#A2A2A2] hover:text-[#AB2C12] mt-4  gap-2 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#AB2C12" fill="none" strokeLinecap="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M12 5l0 14" />
+                  <path d="M5 12l14 0" />
+                </svg>
+                <span>Añadir tarea</span>
+              </button>
+            ) : (
+              <FormTasks showTaskForm={isEditing} setShowTaskForm={setIsEditing} />
+            )
           )
       }
 

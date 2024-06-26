@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import CardTask from "./card-task";
+import CardFormTask from "./card-form-task";
 import { TaskKeys } from "@/app/enums/taskKeys";
 import { useState } from "react";
 import { addTask } from "@/app/services/taskService";
@@ -61,13 +61,13 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
       <textarea value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Descripción" className=" text-gray-400 text-sm focus:outline-none"></textarea>
       {/** card fecha vencimiento y prioridad*/}
       <div className="flex items-start justify-start gap-3">
-        <CardTask task={TaskKeys.DueDate} />
-        <CardTask task={TaskKeys.Priority} />
+        <CardFormTask task={TaskKeys.DueDate} />
+        <CardFormTask task={TaskKeys.Priority} />
       </div>
       {/** card recordatorios y etiquetas */}
       <div className="flex items-start justify-start gap-3 mt-2">
-        <CardTask task={TaskKeys.Reminders} />
-        <CardTask task={TaskKeys.Tags} />
+        <CardFormTask task={TaskKeys.Reminders} />
+        <CardFormTask task={TaskKeys.Tags} />
       </div>
 
       <div className="mt-4 flex items-center justify-between">
