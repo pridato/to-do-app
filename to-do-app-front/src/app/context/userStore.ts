@@ -7,7 +7,7 @@ import { UserState } from '../enums/UserState';
 const useUserStore = create<UserState>((set) => ({
   // estado inicial, se actualiza con el usuario
   // estado inicial se recoge de localStorage o null
-  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  user: null,
   /**
    * metodo para añadir un usuario
    * @param user usuario a añadir al estado

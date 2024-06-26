@@ -8,11 +8,6 @@ interface CardTaskProps {
 
 const CardTask: React.FC<CardTaskProps> = ({ task }) => {
 
-  const [dueDate, setDueDate] = useState<Date>();
-  const [priority, setPriority] = useState<number>();
-  const [reminders, setReminders] = useState<Date[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-
   const renderCard = (taskKey: TaskKeys) => {
     switch (taskKey) {
       case TaskKeys.DueDate:
@@ -20,7 +15,7 @@ const CardTask: React.FC<CardTaskProps> = ({ task }) => {
           <Tooltip label="Establecer fecha de vencimiento" placement='top-start' aria-label="A tooltip">
             <button className="border rounded-md w-[5vw] text-sm px-3 py-1 hover:bg-gray-200 border-gray-300 flex items-center justify-center gap-2">
               <span className="text-gray-400">Hoy</span>
-              <button className="text-xs text-gray-500 hover:text-black">X</button>
+              <div className="text-xs text-gray-500 hover:text-black">X</div>
             </button>
           </Tooltip>
 
