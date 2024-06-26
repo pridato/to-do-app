@@ -70,6 +70,8 @@ export default function Login() {
     login({ email, password })
       .then((response) => {
         addUser(response.data)
+        // guardamos el usuario en el localstorage
+        localStorage.setItem('user', JSON.stringify(response.data));
         router.push('/app');
       })
       .catch((error) => {

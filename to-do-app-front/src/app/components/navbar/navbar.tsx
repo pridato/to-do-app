@@ -1,6 +1,5 @@
 import { Avatar} from '@chakra-ui/react'
 import OptionsNavbar from './optionsNavbar';
-import { useEffect } from 'react';
 import useUserStore from '@/app/context/userStore';
 
 interface NavbarProps {
@@ -11,16 +10,12 @@ const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
 
   const user = useUserStore();
 
-  useEffect(() => {
-    console.log(user);
-  })
-
   return (
     <div className='bg-[#FCFAF8] shadow-md '>
       <div className="flex items-center justify-center gap-4 mt-4">
         <button className="flex items-center justify-center hover:bg-gray-200 rounded-lg px-4 py-1">
           <Avatar bg='red.500' size='sm'></Avatar>
-          <span className="ml-4">david...</span>
+          <span className="ml-4 max-w-[5vw]">{user?.user?.username}</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="ml-2 icon icon-tabler icon-tabler-chevron-down" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#9e9e9e" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M6 9l6 6l6 -6" />
