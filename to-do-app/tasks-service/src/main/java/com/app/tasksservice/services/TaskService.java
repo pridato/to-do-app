@@ -8,6 +8,8 @@ import com.app.tasksservice.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskService {
 
@@ -54,5 +56,14 @@ public class TaskService {
             restMessage.setCode(500);
             return restMessage;
         }
+    }
+
+    /**
+     * metodo para obtener las tareas de un usuario por su id
+     * @param userId id del usuario logueado, lo sacamos directamente del estado
+     * @return lista de las tareas del usuario en cuestión
+     */
+    public List<Task> getTasksByIdUser(Long userId) {
+        return taskRepository.findByUserId(userId);
     }
 }

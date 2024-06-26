@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/tasks")
 @CrossOrigin(origins = "*")
@@ -25,6 +28,15 @@ public class TaskController {
             return ResponseEntity.status(restMessage.getCode()).body(restMessage);
         } catch (Exception ex) {
             return ResponseEntity.status(500).body(restMessage);
+        }
+    }
+
+    @RequestMapping("/get-tasks-by-user")
+    public ResponseEntity<List<Task>> getTasksByUser(@RequestBody Long userId) {
+        try {
+            return ResponseEntity.ok(taskService.getTasksByIdUser(userId));
+        } catch (Exception ex) {
+            return ResponseEntity.status(500).body(new ArrayList<>());
         }
     }
 }
