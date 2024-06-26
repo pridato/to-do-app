@@ -17,7 +17,7 @@ public class Task {
     private String name;
 
     @Column(nullable = false)
-    private Long userId; // Referencia al usuario
+    private Long userId;
 
     @Column(nullable = false)
     private String description;
