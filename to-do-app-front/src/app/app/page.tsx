@@ -48,7 +48,7 @@ export default function App() {
       <span className="text-[#A2A2A2] text-sm mt-2">contador tareas total...</span>
 
       <div className="flex flex-col items-start justify-start mt-4">
-        <div className="font-semibold">25 Jun · Hoy <span className="text-[#A2A2A2] ml-2">0</span></div>
+        <div className="font-semibold">25 Jun · Hoy <span className="text-[#A2A2A2] ml-2">{tasks.length}</span></div>
       </div>
 
       {

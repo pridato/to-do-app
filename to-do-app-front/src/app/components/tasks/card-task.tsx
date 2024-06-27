@@ -1,4 +1,5 @@
 import { Task } from "@/app/model/task";
+import { Tooltip } from '@chakra-ui/react'
 
 interface CardTaskProps {
   task: Task;
@@ -6,7 +7,21 @@ interface CardTaskProps {
 
 const CardTask: React.FC<CardTaskProps> = ({ task }) => {
   return (
-    <div key={task.id} className="bg-white rounded-lg  border p-4 w-[17vw] mt-2 hover:cursor-pointer hover:shadow-md">
+    <div key={task.id} className="group bg-white rounded-lg border p-4 w-[17vw] mt-2 hover:cursor-pointer hover:shadow-md relative">
+      {/** opciones 3 puntos sobre la tarea */}
+      <div className="absolute top-5 right-3 flex items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+        {/** svg de más acciones */}
+        <Tooltip label="Más acciones" placement='top-start'>
+          <button className="hover:bg-gray-100 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-dots" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#9e9e9e" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>
+          </button>
+        </Tooltip>
+      </div>
       <div className="flex items-center justify-start gap-2">
         {/** crear un input propio para animacion de completado de tarea */}
         <h2 className="text-md">{task.name}</h2>
