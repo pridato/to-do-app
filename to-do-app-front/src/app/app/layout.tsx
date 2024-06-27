@@ -2,7 +2,7 @@
 import { Popover, PopoverTrigger } from "@chakra-ui/react";
 import Navbar from "../components/navbar/navbar"
 import { useEffect, useState } from "react";
-import ViewPopOver from "../components/popovers/viewPopOver";
+import ViewPopOver from "../components/popovers/view/viewPopOver";
 
 export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
