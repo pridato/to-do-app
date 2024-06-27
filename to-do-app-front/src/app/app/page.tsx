@@ -6,12 +6,18 @@ import useUserStore from "../context/userStore";
 import { Task } from "../model/task";
 import useToastService from "../services/toastService";
 import CardTask from "../components/tasks/card-task";
+import { toast, ToastContainer } from 'react-toastify';
+import CustomToast from "../components/toast/customToast";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export default function App() {
 
   const [isEditing, setIsEditing] = useState(false)
   const [tasks, setTasks] = useState<Task[]>([])
   const user = useUserStore();
+  const showToast = () => { toast(<CustomToast message='Añadido a' redirect="Bandeja de entrada" openToast={handleOpenTask} />) }
+  const [taskCreated, setTaskCreated] = useState<Task | null>(null)
 
   // para evitar problemas de renderizado infinito que nos probocaba el uso de useToastService directamente
   // creamos una referencia para el hook
@@ -19,6 +25,8 @@ export default function App() {
   const toastService = toastServiceRef.current;
 
   useEffect(() => {
+    
+
     if (!user?.user?.id) return
 
     /**
@@ -51,7 +59,18 @@ export default function App() {
    */
   const handleNewTask = (newTask: Task) => {
     setTasks(prevTasks => [...prevTasks, newTask]);
+    setTaskCreated(newTask); // -> para mostrar el toast
+    showToast()
   };
+
+  /**
+   * metodo para manejar la apertura de una tarea
+   * @param task tarea a abrir
+   */
+  const handleOpenTask = () => {
+    //TODO abrir un modal de la tarea
+    toast.dismiss() // cerrar
+  }
 
 
   return (
@@ -86,6 +105,17 @@ export default function App() {
           )
       }
 
+      {/** toast container */}
+      <ToastContainer
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </main>
   );
 }

@@ -7,9 +7,6 @@ import { RestMessage } from "@/app/model/restMessage";
 import useToastService from "@/app/services/toastService";
 import useUserStore from "@/app/context/userStore";
 import { Task } from "@/app/model/task";
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import CustomToast from "../toast/customToast";
 
 interface formTasksProps {
   showTaskForm: boolean;
@@ -26,7 +23,6 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, on
 
   const user = useUserStore();
 
-  const showToast = () => { toast(<CustomToast />) }
 
   // al inicio del componente hacer directamente focus a la referencia creada al input del nombre de la tarea
   useEffect(() => {
@@ -54,7 +50,6 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, on
     // addtask metodo propio de taskService.ts que añade una tarea
     addTask(task)
       .then((resp: RestMessage) => {
-        showToast()
         setShowTaskForm(false);
         // se actualiza el padre
         onNewTask(task)
@@ -103,18 +98,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, on
         </div>
       </div>
 
-      {/** toast container */}
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      
     </div>
   )
 }
