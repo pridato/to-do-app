@@ -2,7 +2,8 @@ import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter
 
 const ViewPopOver = () => {
   return (
-    <PopoverContent boxShadow='xl'>
+    <PopoverContent boxShadow='xl' className="popover-content">
+      {/** establecemos un classname para desde el padre poder cerrarlo a través de un document.event... */}
       <PopoverArrow />
       <PopoverHeader >
         <div className="flex flex-col">

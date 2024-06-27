@@ -1,12 +1,13 @@
 "use client";
 import { Popover, PopoverTrigger } from "@chakra-ui/react";
 import Navbar from "../components/navbar/navbar"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ViewPopOver from "../components/popovers/viewPopOver";
 
 export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
   const [open, setOpen] = useState(true)
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   /**
    * metodo para abrir y cerrar el navbar
@@ -14,6 +15,33 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
   const handleOpen = () => {
     setOpen(!open)
   }
+
+  /**
+   * metodo para abrir y cerrar el popover
+   */
+  const handlePopover = () => {
+    setIsPopoverOpen(!isPopoverOpen)
+  }
+
+
+  useEffect(() => {
+    // se crea dentro del useEffect para que no se ejecute en cada render
+    const handleGlobalClick = (event:any) => {
+      if (!event.target.closest('.popover-content')) {
+        setIsPopoverOpen(false);
+      }
+    };
+  
+    if (isPopoverOpen) {
+      document.addEventListener('click', handleGlobalClick);
+    } else {
+      document.removeEventListener('click', handleGlobalClick);
+    }
+  
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+    };
+  }, [isPopoverOpen])
 
   return (
     <div className="grid grid-rows-layout grid-cols-5  h-screen">
@@ -34,9 +62,9 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
       }
 
       {/** mostrar vista de configuracion */}
-      <Popover placement="bottom-start" >
+      <Popover placement="bottom-start" onClose={handlePopover} isOpen={isPopoverOpen}>
         <PopoverTrigger>
-          <button className="text-gray-500 text-sm px-3 py-2 absolute right-2 top-4 hover:bg-gray-200 rounded-lg flex justify-center items-center gap-2">
+          <button onClick={handlePopover} className="text-gray-500 text-sm px-3 py-2 absolute right-2 top-4 hover:bg-gray-200 rounded-lg flex justify-center items-center gap-2">
             {/** svg ajustes */}
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-adjustments-horizontal" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#504F4F" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none" />
