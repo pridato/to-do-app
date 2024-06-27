@@ -1,10 +1,10 @@
 export enum GroupByOptions {
-  NONE = 'ninguno',
-  RESPONSIBLE = 'responsable',
-  DUE_DATE = 'fecha de vencimiento',
-  ADD_DATE = 'fecha de creación',
-  PRIORITY = 'prioridad',
-  TAG = 'etiqueta',
-  PROJECT = 'proyecto',
-  PROJECT_SPACE = 'espacio de proyecto',
+  NONE = 'Ninguno',
+  RESPONSIBLE = 'Responsable',
+  DUE_DATE = 'Fecha de vencimiento',
+  ADD_DATE = 'Fecha de creación',
+  PRIORITY = 'Prioridad',
+  TAG = 'Etiqueta',
+  PROJECT = 'Proyecto',
+  PROJECT_SPACE = 'Espacio de proyecto',
 }
