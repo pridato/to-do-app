@@ -1,4 +1,4 @@
-import { GroupByOptions } from "@/app/enums/GroupByOptions";
+import { GroupByOptions } from "@/app/enums/groupByOptions";
 import { PopoverArrow, PopoverContent } from "@chakra-ui/react";
 
 export default function GroupBy() {
