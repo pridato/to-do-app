@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ChakraProvider } from '@chakra-ui/react'
+import ProtectedRoutes from "./components/protectedRoutes";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,7 +20,9 @@ export default function RootLayout({
     <html lang="es" >
       <body suppressHydrationWarning={true} className={inter.className} >
         <ChakraProvider>
-          {children}
+          <ProtectedRoutes>
+            {children}
+          </ProtectedRoutes>
         </ChakraProvider>
       </body>
     </html>
