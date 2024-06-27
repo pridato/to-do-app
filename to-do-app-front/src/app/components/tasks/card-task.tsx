@@ -23,10 +23,19 @@ const CardTask: React.FC<CardTaskProps> = ({ task }) => {
         </Tooltip>
       </div>
       <div className="flex items-center justify-start gap-2">
-        {/** crear un input propio para animacion de completado de tarea */}
-        <h2 className="text-md">{task.name}</h2>
+        {/** titulo de cada tarea */}
+        <div className="flex items-center justify-center gap-2">
+          <button className="w-4 h-4 border-[#ABABAB] border rounded-full flex items-center justify-center ">
+          {/** svg check task */}
+          <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-check hover:stroke-[#706c6c] stroke-transparent" width="12" height="12" viewBox="0 0 24 24" strokeWidth="2.5"  fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 12l5 5l10 -10" />
+          </svg>
+          </button>
+          <h2 className="text-md">{task.name}</h2>
+        </div>
       </div>
-      <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+      <p className="text-sm text-gray-600 mt-1 ml-6">{task.description}</p>
     </div>
   )
 }

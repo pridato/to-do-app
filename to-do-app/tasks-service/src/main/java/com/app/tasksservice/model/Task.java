@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "TASKS")
+@Entity(name = "Tasks")
 @Data
 public class Task {
     @Id

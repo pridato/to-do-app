@@ -6,24 +6,29 @@ import { addTask } from "@/app/services/taskService";
 import { RestMessage } from "@/app/model/restMessage";
 import useToastService from "@/app/services/toastService";
 import useUserStore from "@/app/context/userStore";
+import { Task } from "@/app/model/task";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import CustomToast from "../toast/customToast";
 
 interface formTasksProps {
   showTaskForm: boolean;
   setShowTaskForm: any;
+  onNewTask: (newTask: Task) => void; // función para manejar la creación de una nueva tarea
 }
 
-const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) => {
+const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, onNewTask }) => {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const toastService = useToastService();
   const [name, setName] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  
+
   const user = useUserStore();
-  /**
-   * useEffect: Hook que se ejecuta después de que el componente se renderiza. Se actualiza cuando showTaskForm cambia.
-   * la funcion ejecuta si el ref se aplica correctamente al input se enfoca en el input.
-   */
+
+  const showToast = () => { toast(<CustomToast />) }
+
+  // al inicio del componente hacer directamente focus a la referencia creada al input del nombre de la tarea
   useEffect(() => {
     if (showTaskForm) {
       inputRef.current?.focus();
@@ -35,30 +40,35 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
    * @param e html input event
    */
   const handleSubmit = (e: any) => {
-    console.log(user.user?.id)
     e.preventDefault();
-    addTask({
-      name: name, 
+
+    const task: Task = {
+      name: name,
       userId: user.user?.id!,
-      description: description, 
+      description: description,
       dueDate: new Date(),
       completed: false,
       projectId: 1
-    }).then((resp:RestMessage) => {
-      toastService.showInfo(resp.message);
-      setShowTaskForm(false);
-    }).catch((error) => {
-      toastService.showError(error.response.data.message);
-      console.log(error)
-    })
+    }
 
-    
+    // addtask metodo propio de taskService.ts que añade una tarea
+    addTask(task)
+      .then((resp: RestMessage) => {
+        showToast()
+        setShowTaskForm(false);
+        // se actualiza el padre
+        onNewTask(task)
+      })
+      .catch((error) => {
+        // si hay un error en la respuesta se muestra un mensaje de error
+        toastService.showError(error.response.data.message);
+      })
   }
 
   return (
     <div className="mt-4 border rounded-md shadow-sm w-[20vw] px-4 py-2">
       <input value={name} onChange={(e) => setName(e.target.value)} ref={inputRef} type="text" placeholder="Nombre de la tarea" className="text-xl text-gray-400 font-semibold focus:outline-none" />
-      <textarea value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Descripción" className=" text-gray-400 text-sm focus:outline-none"></textarea>
+      <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Descripción" className=" text-gray-400 text-sm focus:outline-none"></textarea>
       {/** card fecha vencimiento y prioridad*/}
       <div className="flex items-start justify-start gap-3">
         <CardFormTask task={TaskKeys.DueDate} />
@@ -77,7 +87,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
           {/** cancelar task */}
           <button onClick={() => setShowTaskForm(false)} className="border rounded-md bg-gray-200 hover:bg-gray-300 px-1 py-1">
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.0" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M18 6l-12 12" />
               <path d="M6 6l12 12" />
             </svg>
@@ -85,13 +95,26 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm }) 
           {/** enviar task */}
           <button onClick={handleSubmit} className="border rounded-md bg-red-400 hover:bg-red-500 px-1 py-1">
             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-send-2" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
               <path d="M4.698 4.034l16.302 7.966l-16.302 7.966a.503 .503 0 0 1 -.546 -.124a.555 .555 0 0 1 -.12 -.568l2.468 -7.274l-2.468 -7.274a.555 .555 0 0 1 .12 -.568a.503 .503 0 0 1 .546 -.124z" />
               <path d="M6.5 12h14.5" />
             </svg>
           </button>
         </div>
       </div>
+
+      {/** toast container */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   )
 }

@@ -37,9 +37,22 @@ export default function App() {
 
   }, [user?.user?.id, toastService]);
 
+  /**
+   * Función para manejar el evento de edición de tareas
+   */
   const handleEdit = () => {
     setIsEditing(true)
   }
+
+  /**
+   * metodo para manejar la creación de una nueva tarea
+   * Básicamente se usa esta función para cuando en el hijo formTask se completa una tarea, se añada a la lista de tareas
+   * @param newTask tarea a insertar
+   */
+  const handleNewTask = (newTask: Task) => {
+    setTasks(prevTasks => [...prevTasks, newTask]);
+  };
+
 
   return (
     <main className="mt-10 ml-4">
@@ -68,7 +81,7 @@ export default function App() {
                 <span>Añadir tarea</span>
               </button>
             ) : (
-              <FormTasks showTaskForm={isEditing} setShowTaskForm={setIsEditing} />
+              <FormTasks showTaskForm={isEditing} setShowTaskForm={setIsEditing} onNewTask={handleNewTask} />
             )
           )
       }
