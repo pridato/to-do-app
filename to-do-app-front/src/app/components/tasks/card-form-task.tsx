@@ -1,6 +1,5 @@
 import { TaskKeys } from "@/app/enums/taskKeys";
 import { Tooltip } from '@chakra-ui/react'
-import { useState } from "react";
 
 interface CardTaskProps {
   task: TaskKeys;

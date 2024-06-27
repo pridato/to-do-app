@@ -22,3 +22,13 @@ export async function getTasksUser(userId:number): Promise<Task[]> {
   const response = await axios.get(`${taskServiceUrl}/get-tasks-by-user?userId=${userId}`)
   return response.data
 }
+
+/**
+ * metodo para actualizar una tarea concreta
+ * @param task nueva task a actualizar
+ * @returns 
+ */
+export async function updateTask(task: Task): Promise<RestMessage> {
+  const response = await axios.post(`${taskServiceUrl}/update-task`, task)
+  return response.data
+}

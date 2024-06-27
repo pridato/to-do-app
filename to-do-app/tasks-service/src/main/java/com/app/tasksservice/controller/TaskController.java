@@ -37,4 +37,14 @@ public class TaskController {
             return ResponseEntity.status(500).body(new ArrayList<>());
         }
     }
+
+    @PostMapping("/update-task")
+    public ResponseEntity<RestMessage> updateTask(@RequestBody Task task) {
+        RestMessage restMessage = taskService.updateTask(task);
+        try {
+            return ResponseEntity.status(restMessage.getCode()).body(restMessage);
+        } catch (Exception ex) {
+            return ResponseEntity.status(500).body(restMessage);
+        }
+    }
 }

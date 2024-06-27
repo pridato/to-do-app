@@ -65,6 +65,26 @@ public class TaskService {
      */
     public List<Task> getTasksByIdUser(Long userId) {
         System.out.println(taskRepository.findByUserId(userId));
-        return taskRepository.findByUserId(userId);
+        return taskRepository.findByUserId(userId).stream().filter(task -> !task.getCompleted()).toList();
+    }
+
+    /**
+     * metodo para actualizar una task concreta
+     * @param task
+     * @return
+     */
+    public RestMessage updateTask(Task task) {
+        RestMessage restMessage = new RestMessage();
+        // 1º si la tarea pasada del front no tiene id no se puede actualizar
+        if(task.getId() == null) {
+            restMessage.setMessage("No se ha encontrado la tarea");
+            restMessage.setCode(404);
+            return restMessage;
+        }
+
+        taskRepository.save(task);
+        restMessage.setMessage("Tarea actualizada correctamente");
+        restMessage.setCode(200);
+        return restMessage;
     }
 }

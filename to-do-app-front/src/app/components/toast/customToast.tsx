@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CustomToastProps {
-  openToast: () => void;
+  openToast: (() => void) | null;
   message:string
   redirect:string
 }
@@ -13,7 +13,12 @@ const CustomToast: React.FC<CustomToastProps> = ({ openToast, message, redirect 
         <span>{message}</span>
         <a href="#" className="underline ml-1">{redirect}</a>
       </div>
-      <button onClick={openToast} className='text-[#FFAAA1]'>abrir</button>
+      {
+        openToast && (
+          <button onClick={openToast} className='text-[#FFAAA1]'>abrir</button>
+        )
+      
+      }
     </div>
   );
 };
