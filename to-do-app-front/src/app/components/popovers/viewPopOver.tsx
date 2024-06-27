@@ -1,5 +1,5 @@
 import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter, Tooltip } from "@chakra-ui/react";
-import { IconChevronDown } from '@tabler/icons-react';
+import { IconChevronDown, IconFlag, IconUser } from '@tabler/icons-react';
 
 const ViewPopOver = () => {
   return (
@@ -9,19 +9,19 @@ const ViewPopOver = () => {
       <PopoverHeader >
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
-          <h5 className="font-semibold">Vista</h5>
-          {/** interrogante sobre vista */}
-          <Tooltip label="La vista se sincroniza entre compañeros de equipo en proyectos compartidos." placement='top-start'>
-            <button>
-              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <circle cx="12" cy="12" r="9" />
-                <line x1="12" y1="17" x2="12" y2="17.01" />
-                <path d="M12 12v5" />
-                <path d="M12 7v.01" />
-              </svg>
-            </button>
-          </Tooltip>
+            <h5 className="font-semibold">Vista</h5>
+            {/** interrogante sobre vista */}
+            <Tooltip label="La vista se sincroniza entre compañeros de equipo en proyectos compartidos." placement='top-start'>
+              <button>
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="12" y1="17" x2="12" y2="17.01" />
+                  <path d="M12 12v5" />
+                  <path d="M12 7v.01" />
+                </svg>
+              </button>
+            </Tooltip>
           </div>
           {/** configuración de como ver la vista actual */}
           <div className="flex items-center justify-center gap-1 py-1 px-2 mt-2 rounded-md bg-gray-100">
@@ -44,21 +44,21 @@ const ViewPopOver = () => {
           {/** header del body */}
           <div className="flex flex-col">
             <div className="flex items-center justify-between">
-            <h5 className="font-semibold">Ordenar por</h5>
-            {/** interrogante sobre vista */}
-            <Tooltip label="Las opciones para ordenar se te aplican solo a ti." placement='top-start'>
-              <button>
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <circle cx="12" cy="12" r="9" />
-                  <line x1="12" y1="17" x2="12" y2="17.01" />
-                  <path d="M12 12v5" />
-                  <path d="M12 7v.01" />
-                </svg>
-              </button>
-            </Tooltip>
+              <h5 className="font-semibold">Ordenar por</h5>
+              {/** interrogante sobre vista */}
+              <Tooltip label="Las opciones para ordenar se te aplican solo a ti." placement='top-start'>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="12" y1="17" x2="12" y2="17.01" />
+                    <path d="M12 12v5" />
+                    <path d="M12 7v.01" />
+                  </svg>
+                </button>
+              </Tooltip>
             </div>
-            
+
           </div>
 
           {/** propio cuerpo */}
@@ -90,28 +90,60 @@ const ViewPopOver = () => {
             </button>
           </div>
         </div>
-        
+
       </PopoverBody>
       <PopoverFooter>
-        {/** header del body */}
-        <div className="flex flex-col">
-          <div className="flex items-center justify-between">
-          <h5 className="font-semibold">Filtrar por</h5>
-          {/** interrogante sobre vista */}
-          <Tooltip label="Las opciones para filtrar se te aplican solo a ti." placement='top-start'>
-            <button>
-              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <circle cx="12" cy="12" r="9" />
-                <line x1="12" y1="17" x2="12" y2="17.01" />
-                <path d="M12 12v5" />
-                <path d="M12 7v.01" />
-              </svg>
-            </button>
-          </Tooltip>
+        <div>
+          {/** header del body */}
+          <div className="flex flex-col">
+            <div className="flex items-center justify-between">
+              <h5 className="font-semibold">Filtrar por</h5>
+              {/** interrogante sobre vista */}
+              <Tooltip label="Las opciones para filtrar se te aplican solo a ti." placement='top-start'>
+                <button>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-question stroke-[#6f6a6a] hover:stroke-[#422a2a]" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="12" cy="12" r="9" />
+                    <line x1="12" y1="17" x2="12" y2="17.01" />
+                    <path d="M12 12v5" />
+                    <path d="M12 7v.01" />
+                  </svg>
+                </button>
+              </Tooltip>
+            </div>
+
           </div>
-          
+
+          {/** propio cuerpo */}
+          <div className="mt-2 text-sm">
+            {/** opcion agrupacion */}
+            <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
+              <div className="flex items-center justify-center gap-2">
+                <IconUser stroke={1} />
+                <span>Asignar a</span>
+              </div>
+              <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
+                <span >Defecto</span>
+                {/** svg flecha hacia abajo */}
+                <IconChevronDown stroke={1.5} />
+              </div>
+            </button>
+
+            {/** opcion prioridad */}
+            <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
+              <div className="flex items-center justify-center gap-2">
+                <IconFlag stroke={1} />
+                <span>Prioridad</span>
+              </div>
+              <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
+                <span className="w-[80%] truncate">Todos </span>
+                {/** svg flecha hacia abajo */}
+                <IconChevronDown stroke={1.5} />
+              </div>
+            </button>
+          </div>
         </div>
+
       </PopoverFooter>
     </PopoverContent>
   );
