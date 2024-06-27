@@ -1,6 +1,8 @@
 "use client";
+import { Popover, PopoverTrigger } from "@chakra-ui/react";
 import Navbar from "../components/navbar/navbar"
 import { useState } from "react";
+import ViewPopOver from "../components/popovers/viewPopOver";
 
 export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
@@ -32,22 +34,28 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
       }
 
       {/** mostrar vista de configuracion */}
-      <button className="text-gray-500 text-sm px-3 py-2 absolute right-2 top-4 hover:bg-gray-200 rounded-lg flex justify-center items-center gap-2">
-        {/** svg ajustes */}
-        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-adjustments-horizontal" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#504F4F" fill="none" strokeLinecap="round" strokeLinejoin="round">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-          <path d="M4 6l8 0" />
-          <path d="M16 6l4 0" />
-          <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-          <path d="M4 12l2 0" />
-          <path d="M10 12l10 0" />
-          <path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-          <path d="M4 18l11 0" />
-          <path d="M19 18l1 0" />
-        </svg>
-        <span>Vista</span>
-      </button>
+      <Popover placement="bottom-start" >
+        <PopoverTrigger>
+          <button className="text-gray-500 text-sm px-3 py-2 absolute right-2 top-4 hover:bg-gray-200 rounded-lg flex justify-center items-center gap-2">
+            {/** svg ajustes */}
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-adjustments-horizontal" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#504F4F" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M14 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M4 6l8 0" />
+              <path d="M16 6l4 0" />
+              <path d="M8 12m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M4 12l2 0" />
+              <path d="M10 12l10 0" />
+              <path d="M17 18m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+              <path d="M4 18l11 0" />
+              <path d="M19 18l1 0" />
+            </svg>
+            <span>Vista</span>
+          </button>
+        </PopoverTrigger>
+        <ViewPopOver />
+      </Popover>
+
       <div className="col-span-4 p-4">
         {children}
       </div>
