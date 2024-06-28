@@ -18,7 +18,7 @@ export default function ViewOptions(props: ViewOptionsProps) {
     console.log(props.option)
   })
   return (
-    <PopoverContent  boxShadow='xl' padding={2} maxWidth={60}  >
+    <PopoverContent className="popover-content-child" boxShadow='xl' padding={2} maxWidth={60}  >
       <PopoverArrow></PopoverArrow>
       <div className="flex flex-col ">
       {Object.values(GroupByOptions).map(option => (

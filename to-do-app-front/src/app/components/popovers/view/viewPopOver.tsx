@@ -2,12 +2,31 @@ import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter
 import { IconChevronDown, IconFlag, IconUser } from '@tabler/icons-react';
 import ViewOptions from "./viewOptions";
 import { ViewOptionType } from "@/app/enums/ViewOptionType";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ViewPopOver = () => {
 
   const [openPopover, setOpenPopover] = useState<ViewOptionType | null>(null);
 
+  // igual que en el padre hacemos un useEffect para si se presiona en el popovercontent propio se cierre cualquiera
+  // que este abierto
+  useEffect(() => { 
+    const handleGlobalClick = (event:any) => {
+      if (!event.target.closest('.popover-content-child')) {
+        setOpenPopover(null);
+      }
+    };
+
+    if (openPopover) {
+      document.addEventListener('click', handleGlobalClick);
+    } else {
+      document.removeEventListener('click', handleGlobalClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleGlobalClick);
+    };
+  })
 
   /**
    * metodo para gestionar los popover que se mantienen abiertos y cerrarlos al abrir otro 
