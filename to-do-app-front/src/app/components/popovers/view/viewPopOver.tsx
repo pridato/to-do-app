@@ -1,9 +1,20 @@
 import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter, Tooltip, Popover, PopoverTrigger } from "@chakra-ui/react";
 import { IconChevronDown, IconFlag, IconUser } from '@tabler/icons-react';
+import ViewOptions from "./viewOptions";
+import { ViewOptionType } from "@/app/enums/ViewOptionType";
 import { useState } from "react";
-import GroupBy from "./groups";
 
 const ViewPopOver = () => {
+
+  const [openPopover, setOpenPopover] = useState(null);
+
+  /**
+   * metodo para gestionar los popover que se mantienen abiertos y cerrarlos al abrir otro 
+   * @param popoverName 
+   */
+  const handleToggle = (popoverName:any) => {
+    setOpenPopover((prev) => (prev === popoverName ? null : popoverName));
+  };
 
   return (
     <PopoverContent boxShadow='xl' className="popover-content">
@@ -66,10 +77,10 @@ const ViewPopOver = () => {
 
           </div>
 
-          {/** propio cuerpo */}
+          {/** GROUP BY Y ORDER BY */}
           <div className="mt-2 text-sm">
-            {/** opcion agrupacion */}
-            <Popover>
+            {/** GROUP BY */}
+            <Popover closeOnBlur={true}>
               {/** trigger del popover de los groupby */}
               <PopoverTrigger>
                 <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
@@ -84,24 +95,30 @@ const ViewPopOver = () => {
                   </div>
                 </button>
               </PopoverTrigger>
-              <GroupBy />
+              <ViewOptions option={ViewOptionType.GroupBy} />
             </Popover>
 
-            {/** opcion ordenado */}
-            <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
-              <div className="flex items-center justify-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m16.854 5.146 3 3a.502.502 0 0 1-.708.708L17 6.707V18.5a.5.5 0 0 1-1 0V6.707l-2.146 2.147a.502.502 0 0 1-.708-.708l3-3a.502.502 0 0 1 .708 0zM7.5 5a.5.5 0 0 1 .5.5v11.791l2.146-2.145a.502.502 0 0 1 .708.708l-3 3a.502.502 0 0 1-.708 0l-3-3a.502.502 0 0 1 .708-.708L7 17.293V5.5a.5.5 0 0 1 .5-.5z"></path></svg>
-                <span>Ordenar por</span>
-              </div>
-              <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
-                <span className="w-[80%] truncate">Inteligente </span>
-                {/** svg flecha hacia abajo */}
-                <IconChevronDown stroke={1.5} />
-              </div>
-            </button>
+            {/** ORDER BY */}
+            <Popover id="1">
+              {/** trigger del popover de los ORDER BY */}
+              <PopoverTrigger>
+                <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
+                  <div className="flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="m16.854 5.146 3 3a.502.502 0 0 1-.708.708L17 6.707V18.5a.5.5 0 0 1-1 0V6.707l-2.146 2.147a.502.502 0 0 1-.708-.708l3-3a.502.502 0 0 1 .708 0zM7.5 5a.5.5 0 0 1 .5.5v11.791l2.146-2.145a.502.502 0 0 1 .708.708l-3 3a.502.502 0 0 1-.708 0l-3-3a.502.502 0 0 1 .708-.708L7 17.293V5.5a.5.5 0 0 1 .5-.5z"></path></svg>
+                    <span>Ordenar por</span>
+                  </div>
+                  <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
+                    <span className="w-[80%] truncate">Inteligente </span>
+                    {/** svg flecha hacia abajo */}
+                    <IconChevronDown stroke={1.5} />
+                  </div>
+                </button>
+              </PopoverTrigger>
+              <ViewOptions option={ViewOptionType.OrderBy} />
+            </Popover>
+
           </div>
         </div>
-
       </PopoverBody>
 
       <PopoverFooter>
@@ -128,9 +145,8 @@ const ViewPopOver = () => {
 
           {/** propio cuerpo */}
           <div className="mt-2 text-sm">
-            {/** opcion agrupacion */}
-            <Popover placement="left">
-              {/** trigger del popover de los groupby */}
+            {/** ASIGN TO */}
+            <Popover >
               <PopoverTrigger>
                 <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
                   <div className="flex items-center justify-center gap-2">
@@ -144,21 +160,28 @@ const ViewPopOver = () => {
                   </div>
                 </button>
               </PopoverTrigger>
+              <ViewOptions option={ViewOptionType.AsignTo} />
             </Popover>
 
 
-            {/** opcion prioridad */}
-            <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
-              <div className="flex items-center justify-center gap-2">
-                <IconFlag stroke={1} />
-                <span>Prioridad</span>
-              </div>
-              <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
-                <span className="w-[80%] truncate">Todos </span>
-                {/** svg flecha hacia abajo */}
-                <IconChevronDown stroke={1.5} />
-              </div>
-            </button>
+            {/** PRIORITY */}
+            <Popover >
+              <PopoverTrigger>
+                <button className="flex items-center justify-between px-1 py-1 w-full rounded-md hover:bg-gray-100">
+                  <div className="flex items-center justify-center gap-2">
+                    <IconFlag stroke={1} />
+                    <span>Prioridad</span>
+                  </div>
+                  <div className="text-gray-500 flex items-center justify-center gap-1 hover:text-black">
+                    <span className="w-[80%] truncate">Todos </span>
+                    {/** svg flecha hacia abajo */}
+                    <IconChevronDown stroke={1.5} />
+                  </div>
+                </button>
+              </PopoverTrigger>
+              <ViewOptions option={ViewOptionType.Priority} />
+            </Popover>
+
           </div>
         </div>
 

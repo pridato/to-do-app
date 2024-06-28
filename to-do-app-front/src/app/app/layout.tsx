@@ -62,7 +62,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
       }
 
       {/** mostrar vista de configuracion */}
-      <Popover placement="bottom-start" onClose={handlePopover} isOpen={isPopoverOpen}>
+      <Popover placement="bottom-start" onClose={handlePopover} isOpen={isPopoverOpen} >
         <PopoverTrigger>
           <button onClick={handlePopover} className="text-gray-500 text-sm px-3 py-2 absolute right-2 top-4 hover:bg-gray-200 rounded-lg flex justify-center items-center gap-2">
             {/** svg ajustes */}
