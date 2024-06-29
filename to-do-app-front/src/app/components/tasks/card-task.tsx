@@ -29,7 +29,7 @@ const CardTask: React.FC<CardTaskProps> = ({ task, onTaskComplete }) => {
   }
 
   return (
-    <div key={task.id} className="group bg-white rounded-lg border p-4 w-[17vw] mt-2 hover:cursor-pointer hover:shadow-md relative">
+    <div className="group bg-white rounded-lg border p-4 w-[17vw] mt-2 hover:cursor-pointer hover:shadow-md relative">
       {/** opciones 3 puntos sobre la tarea */}
       <div className="absolute top-5 right-3 flex items-end justify-end opacity-0 group-hover:opacity-100 transition-opacity">
         {/** svg de más acciones */}

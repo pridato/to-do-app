@@ -40,7 +40,7 @@ export default function ViewOptions(props: ViewOptionsProps) {
       <PopoverArrow></PopoverArrow>
       <div className="flex flex-col ">
         {selectedoption.map(option => (
-          <button key={option} className="px-2 py-1 rounded-md hover:bg-gray-100 flex items-start justify-start">
+          <button key={option + '1'} className="px-2 py-1 rounded-md hover:bg-gray-100 flex items-start justify-start">
             {option}
           </button>
         ))}

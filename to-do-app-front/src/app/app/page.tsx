@@ -85,6 +85,8 @@ export default function App() {
     showToast('Tarea completada', '', false)
   }
 
+  const generateRandomkey = Math.random().toString(36).substring(7);
+
   return (
     <main className="mt-10 ml-4">
       <h1 className="font-bold text-2xl">Hoy</h1>
@@ -95,7 +97,7 @@ export default function App() {
   
       {tasks.length > 0 && (
         tasks.map((task) => (
-          <CardTask task={task} key={task.id} onTaskComplete={handleCompletedTask}/>
+          <CardTask task={task} key={generateRandomkey} onTaskComplete={handleCompletedTask}/>
         ))
       )}
   

@@ -60,6 +60,7 @@ public class TaskService {
 
     /**
      * metodo para obtener las tareas de un usuario por su id
+     *
      * @param userId id del usuario logueado, lo sacamos directamente del estado
      * @return lista de las tareas del usuario en cuestión
      */
@@ -70,13 +71,14 @@ public class TaskService {
 
     /**
      * metodo para actualizar una task concreta
+     *
      * @param task
      * @return
      */
     public RestMessage updateTask(Task task) {
         RestMessage restMessage = new RestMessage();
         // 1º si la tarea pasada del front no tiene id no se puede actualizar
-        if(task.getId() == null) {
+        if (task.getId() == null) {
             restMessage.setMessage("No se ha encontrado la tarea");
             restMessage.setCode(404);
             return restMessage;
