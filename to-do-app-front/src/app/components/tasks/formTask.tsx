@@ -52,7 +52,7 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, on
       .then((resp: RestMessage) => {
         setShowTaskForm(false);
         // se actualiza el padre
-        onNewTask(task)
+        onNewTask(resp.otherData as Task) // le pasamos la tarea que se ha creado para tener el id 
       })
       .catch((error) => {
         // si hay un error en la respuesta se muestra un mensaje de error

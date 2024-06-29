@@ -18,12 +18,14 @@ const CardTask: React.FC<CardTaskProps> = ({ task, onTaskComplete }) => {
    * se marca la tarea, x el momento se borra y se pasa a spring para actualizar este mismo
    */
   const handleCompleteTask = () => {
+    console.log('completar tarea', task)
     // completar tarea
     updateTask({ ...task, completed: true })
       .then((resp:RestMessage) => {
         onTaskComplete(task);
       })
       .catch((error) => {
+        console.log(error);
         toastService.showError('Error al completar la tarea');
       })
   }
