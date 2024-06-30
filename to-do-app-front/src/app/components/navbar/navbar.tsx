@@ -1,6 +1,7 @@
-import { Avatar} from '@chakra-ui/react'
+import { Avatar, useDisclosure} from '@chakra-ui/react'
 import OptionsNavbar from './optionsNavbar';
 import useUserStore from '@/app/context/userStore';
+import ModalFormTask from '../tasks/modal-form-task';
 
 interface NavbarProps {
   toggleNavbar: () => void;
@@ -9,9 +10,11 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
 
   const user = useUserStore();
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <div className='bg-[#FCFAF8] shadow-md '>
+      <ModalFormTask isOpen={isOpen} onClose={onClose} />
       <div className="flex items-center justify-center gap-4 mt-4">
         <button className="flex items-center justify-center hover:bg-gray-200 rounded-lg px-4 py-1">
           <Avatar bg='red.500' size='sm'></Avatar>
@@ -43,18 +46,6 @@ const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
         </div>
 
       </div>
-
-      {/** añadir nueva tarea */}
-      <a href="#" className="text-[#AB2C12] mx-4 mt-4 hover:bg-gray-100 rounded-lg px-4 py-2 flex items-start justify-start gap-2 ">
-          <button className='bg-[#AB2C12] rounded-full'>
-          <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-            <path d="M12 5l0 14" />
-            <path d="M5 12l14 0" />
-          </svg>
-          </button>
-          <span>Añadir tarea</span>
-        </a>
       <OptionsNavbar />
     </div>
   )

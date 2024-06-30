@@ -23,7 +23,6 @@ const FormTasks: React.FC<formTasksProps> = ({ showTaskForm, setShowTaskForm, on
 
   const user = useUserStore();
 
-
   // al inicio del componente hacer directamente focus a la referencia creada al input del nombre de la tarea
   useEffect(() => {
     if (showTaskForm) {
