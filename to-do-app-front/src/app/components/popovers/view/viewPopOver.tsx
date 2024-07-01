@@ -1,8 +1,9 @@
-import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter, Tooltip, Popover, PopoverTrigger, FormLabel } from "@chakra-ui/react";
+import { PopoverContent, PopoverArrow, PopoverHeader, PopoverBody, PopoverFooter, Tooltip, Popover, PopoverTrigger } from "@chakra-ui/react";
 import { IconChevronDown, IconFlag, IconUser } from '@tabler/icons-react';
 import ViewOptions from "./viewOptions";
 import { ViewOptionType } from "@/app/enums/ViewOptionType";
 import { useEffect, useState } from "react";
+import i18next from '../../../../../i18n';
 
 const ViewPopOver = () => {
 
@@ -40,8 +41,10 @@ const ViewPopOver = () => {
   /**
    * metodo para gestionar el idioma de la página entre español e inglés
    */
-  const handleLanguage = () => {
-    setIsSpanishLanguage((prev) => !prev);
+  const handleLanguage = () => { 
+    const newLanguage = isSpanishLanguage ? 'en' : 'es';
+    i18next.changeLanguage(newLanguage)
+    setIsSpanishLanguage((prev) => !prev); 
   }
 
   return (
@@ -52,7 +55,7 @@ const ViewPopOver = () => {
       <PopoverHeader >
         <div className="flex flex-col">
           <div className="flex items-center justify-between">
-            <h5 className="font-semibold">Idioma</h5>
+            <h5 className="font-semibold">{i18next.t('Idioma')}</h5>
             {/** interrogante sobre vista */}
             <Tooltip label="Seleccionar el idioma de la página" placement='top-start'>
               <button>

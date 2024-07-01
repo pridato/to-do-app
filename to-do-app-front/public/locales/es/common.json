@@ -1,0 +1,17 @@
+{
+  "language": "Idioma",
+  "selectLanguage": "Seleccionar el idioma de la página",
+  "spanish": "Español",
+  "english": "Inglés",
+  "sortBy": "Ordenar por",
+  "sortByTooltip": "Las opciones para ordenar se te aplican solo a ti.",
+  "groupBy": "Agrupar por",
+  "none": "Ninguno",
+  "smart": "Inteligente",
+  "filterBy": "Filtrar por",
+  "filterByTooltip": "Las opciones para filtrar se te aplican solo a ti.",
+  "assignTo": "Asignar a",
+  "default": "Defecto",
+  "priority": "Prioridad",
+  "all": "Todos"
+}
