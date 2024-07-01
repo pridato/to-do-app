@@ -4,8 +4,11 @@ import ViewOptions from "./viewOptions";
 import { ViewOptionType } from "@/app/enums/ViewOptionType";
 import { useEffect, useState } from "react";
 import i18next from '../../../../../i18n';
+import useLangStore from "@/app/context/langStore";
 
 const ViewPopOver = () => {
+
+  const langStore = useLangStore();
 
   const [openPopover, setOpenPopover] = useState<ViewOptionType | null>(null);
   const [isSpanishLanguage, setIsSpanishLanguage] = useState<boolean>(true);
@@ -45,6 +48,7 @@ const ViewPopOver = () => {
     const newLanguage = isSpanishLanguage ? 'en' : 'es';
     i18next.changeLanguage(newLanguage)
     setIsSpanishLanguage((prev) => !prev); 
+    langStore.setI18next(langStore.i18next);
   }
 
   return (

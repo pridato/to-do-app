@@ -3,14 +3,18 @@ import OptionsNavbar from './optionsNavbar';
 import useUserStore from '@/app/context/userStore';
 import ModalFormTask from '../tasks/modal-form-task';
 
+
 interface NavbarProps {
   toggleNavbar: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ toggleNavbar }) => {
 
+
   const user = useUserStore();
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  
 
   return (
     <div className='bg-[#FCFAF8] shadow-md '>

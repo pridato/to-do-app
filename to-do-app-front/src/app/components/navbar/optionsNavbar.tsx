@@ -1,9 +1,18 @@
 "use client"
 import { useRouter } from "next/navigation";
+import i18next from "i18next";
+import useLangStore from '@/app/context/langStore';
+import { useEffect } from 'react';
 
 export default function OptionsNavbar() {
 
   const router = useRouter()
+
+  const lang = useLangStore();
+
+  useEffect(() => {
+    const i18next = lang.i18next;
+  }, [lang.i18next]);
 
   return (
     <ul className='mt-2 mx-4 text-[#504F4F] text-sm'>
@@ -20,7 +29,7 @@ export default function OptionsNavbar() {
             <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
             <path d="M20.2 20.2l1.8 1.8" />
           </svg>
-          <span>Buscador</span>
+          <span>{i18next.t('Buscador')}</span>
         </a>
       </li>
 
@@ -32,7 +41,7 @@ export default function OptionsNavbar() {
             <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
             <path d="M4 13h3l3 3h4l3 -3h3" />
           </svg>
-          <span>Bandeja de Entrada</span>
+          <span>{i18next.t('Bandeja de entrada')}</span>
         </a>
       </li>
 
@@ -47,7 +56,7 @@ export default function OptionsNavbar() {
             <path d="M4 11h16" />
             <path d="M15 19l2 2l4 -4" />
           </svg>
-          <span>Hoy</span>
+          <span>{i18next.t('Hoy')}</span>
         </a>
       </li>
 
@@ -63,7 +72,7 @@ export default function OptionsNavbar() {
             <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
             <path d="M20.2 20.2l1.8 1.8" />
           </svg>
-          <span>Próximo</span>
+          <span>{i18next.t('Próximo')}</span>
         </a>
       </li>
     </ul>

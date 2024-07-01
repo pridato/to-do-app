@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import React from 'react';
 
 interface CustomToastProps {
@@ -10,12 +11,12 @@ const CustomToast: React.FC<CustomToastProps> = ({ openToast, message, redirect 
   return (
     <div className="flex items-center justify-between text-white rounded-lg shadow-lg text-base " >
       <div className="flex items-center">
-        <span>{message}</span>
-        <a href="#" className="underline ml-1">{redirect}</a>
+        <span>{i18next.t(message)}</span>
+        <a href="#" className="underline ml-1">{i18next.t(redirect)}</a>
       </div>
       {
         openToast && (
-          <button onClick={openToast} className='text-[#FFAAA1]'>abrir</button>
+          <button onClick={openToast} className='text-[#FFAAA1]'>{i18next.t('abrir')}</button>
         )
       
       }

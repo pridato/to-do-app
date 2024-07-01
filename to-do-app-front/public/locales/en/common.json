@@ -24,5 +24,15 @@
   "Espacio de proyecto": "Project space",
   "Inteligente": "Intelligent",
   "Manual": "Manual",
-  "Nombre": "Name"
+  "Nombre": "Name",
+  "Error obteniendo las tareas": "Error getting tasks",
+  "abrir": "open",
+  "Añadido a": "Added to",
+  "Bandeja de entrada": "Inbox",
+  "Tarea completada": "Task completed",
+  "Hoy": "Today",
+  "Añadir tarea": "Add task",
+  "Buscador": "Search",
+  "Próximo": "Next",
+  "Vista": "View"
 }

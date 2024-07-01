@@ -3,11 +3,20 @@ import { Popover, PopoverTrigger } from "@chakra-ui/react";
 import Navbar from "../components/navbar/navbar"
 import { useEffect, useState } from "react";
 import ViewPopOver from "../components/popovers/view/viewPopOver";
+import useLangStore from "../context/langStore";
+import i18next from "i18next";
 
 export default function LayoutApp({ children }: { children: React.ReactNode }) {
 
   const [open, setOpen] = useState(true)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
+  const lang = useLangStore();
+
+  useEffect(() => {
+    const i18next = lang.i18next;
+  
+  }, [lang.i18next])
 
   /**
    * metodo para abrir y cerrar el navbar
@@ -78,7 +87,7 @@ export default function LayoutApp({ children }: { children: React.ReactNode }) {
               <path d="M4 18l11 0" />
               <path d="M19 18l1 0" />
             </svg>
-            <span>Vista</span>
+            <span>{i18next.t('Vista')}</span>
           </button>
         </PopoverTrigger>
         <ViewPopOver />
