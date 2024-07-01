@@ -9,8 +9,9 @@ import CardTask from "../components/tasks/card-task";
 import { toast, ToastContainer } from 'react-toastify';
 import CustomToast from "../components/toast/customToast";
 import 'react-toastify/dist/ReactToastify.css';
+import { appWithTranslation } from 'next-i18next';
 
-export default function App() {
+function App() {
   const [isEditing, setIsEditing] = useState(false)
   const [tasks, setTasks] = useState<Task[]>([])
   const user = useUserStore();
@@ -99,3 +100,5 @@ export default function App() {
     </main>
   );
 }
+
+export default appWithTranslation(App);
