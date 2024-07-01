@@ -1,123 +1,111 @@
-"use client";
+"use client"
 import { useState } from "react";
 import { minLength } from "@/app/consts";
 import Image from "next/image";
-import { login } from "@/app/services/userService";
+import { signUp } from "@/app/services/userService"; 
 import { useRouter } from 'next/navigation';
 import useUserStore from "@/app/context/userStore";
 import useToastService from "@/app/services/toastService";
 
-export default function Login() {
-
+export default function SignUp() {
   const { addUser } = useUserStore();
   const toastService = useToastService();
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [formError, setFormError] = useState("");
   const router = useRouter();
 
-  /**
-   * comprueba que el email sea valido
-   * @param email string del email que pasa el usuario
-   */
   const validateEmail = (email: string) => {
     const re = /\S+@\S+\.\S+/;
     if (!re.test(email)) {
       setEmailError("Email is invalid");
-    }
-    else {
+    } else {
       setEmailError("");
     }
   };
 
-  /**
-   * metodo para manejar el cambio de email y comprobar si hay errores
-   * @param e el propio input del email
-   */
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+    // Validación opcional del nombre de usuario si es necesario
+    // Puedes implementar validaciones aquí si es necesario
+  }
+
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const emailValue = e.target.value;
     setEmail(emailValue);
-    validateEmail(emailValue)
+    validateEmail(emailValue);
   }
 
-  /**
-   * metodo para manejar el cambio de password y comprobar si hay errores
-   * @param e html input event
-   */
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-    // password tiene que tener 8 digitos, 1 mayus y 1 numero
     if (e.target.value.length < minLength / 2) {
       setFormError("Password must be at least 8 characters long");
-    }
-    else {
+    } else {
       setFormError("");
     }
   }
 
-  /**
-   * metodo para accionar el login del usuario
-   * @param e buton login
-   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    validateEmail(email)
-    if (emailError || password.length < minLength / 2 || !email) {
+    validateEmail(email);
+
+    if (username.length === 0 || emailError || password.length < minLength / 2 || !email) {
       return;
     }
 
-    // si todo ok hace el login de userService recoge o error o el usuario
-    login({ email, password })
+    signUp({ username, email, password }) // Llama a la función de registro con username, email y password
       .then((response) => {
-        addUser(response.data)
-        // guardamos el usuario en el localstorage
+        addUser(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
         router.push('/app');
       })
       .catch((error) => {
-        if(error?.response?.data?.message){
+        if (error?.response?.data?.message) {
           toastService.showError(error.response.data.message);
-          setFormError(error.response.data.message)
+          setFormError(error.response.data.message);
         } else {
           toastService.showError("An error occurred");
-          setFormError("An error occurred")
+          setFormError("An error occurred");
         }
-      })
+      });
   };
 
   return (
     <div className="flex flex-col ml-28 gap-y-5 mt-28">
-      {/* grid para separar el input y una imagen */}
-      <div className="flex items-center justify-center ">
-        {/* formulario */}
+      <div className="flex items-center justify-center">
         <form onSubmit={handleSubmit} className="rounded-lg max-w-lg px-10 py-4 w-[30vw]">
-          <h1 className="text-3xl ml-10 font-semibold mb-10">Iniciar sesión</h1>
+          <h1 className="text-3xl ml-10 font-semibold mb-10">Registro</h1>
 
-          {/* boton google */}
-          <button type="button" className="py-2 mb-5 px-4 flex justify-center items-center gap-5 text-lg text-black hover:bg-gray-200 w-full transition ease-in duration-200 text-center font-semibold rounded-lg border">
-            {/* Icono de google */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-brand-google" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ff4500" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" />
-            </svg>
-            <span>Sign in with Google</span>
-          </button>
-
-          { formError && <p className="text-red-500 text-sm mb-5">{formError}</p> }
-
-          {/* email form */}
+          {/* Campo de Nombre de Usuario */}
           <div className="relative">
             <label className="text-gray-700">
-              Email
-              {emailError && <span className="text-red-500 required-dot">*</span>}
+              Nombre de usuario
+              <span className="text-red-500 required-dot">*</span>
             </label>
             <input
               type="text"
-              id="on-error-email"
+              className={`rounded-lg border flex-1 appearance-none w-full py-2 px-4 text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${usernameError ? "ring-red-500" : "border-gray-300"}`}
+              name="username"
+              placeholder="Tu nombre de usuario"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
+
+          {/* Campo de Email */}
+          <div className="relative mt-5">
+            <label className="text-gray-700">
+              Email
+              <span className="text-red-500 required-dot">*</span>
+            </label>
+            <input
+              type="text"
               className={`rounded-lg border flex-1 appearance-none w-full py-2 px-4 text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${emailError ? "ring-red-500" : "border-gray-300"}`}
               name="email"
-              placeholder="Your email"
+              placeholder="Tu email"
               value={email}
               onChange={handleEmailChange}
             />
@@ -141,25 +129,33 @@ export default function Login() {
           </div>
 
           {/* Campo de Contraseña */}
-          <div className="mt-10">
+          <div className="mt-5">
             <label htmlFor="password">Contraseña</label>
-            {/* Password input */}
-            <input 
-              type="password"  
-              className={`rounded-lg border flex-1 appearance-none w-full py-2 px-4 text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${formError ? "ring-red-500" : "border-gray-300"}`} 
+            <input
+              type="password"
+              className={`rounded-lg border flex-1 appearance-none w-full py-2 px-4 text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 ${formError ? "ring-red-500" : "border-gray-300"}`}
               name="password"
-              placeholder="Tu contraseña..."
+              placeholder="Tu contraseña"
               value={password}
               onChange={handlePasswordChange}
             />
           </div>
 
-          {/* Boton de login */}
-          <button type="submit" className="w-full mt-10 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">
-            Iniciar sesión
+          {/* Mensaje de error del formulario */}
+          {formError && <p className="text-red-500 text-sm mt-5">{formError}</p>}
+
+          {/* Botón de Registro */}
+          <button type="submit" className="w-full mt-8 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg">
+            Registrarse
           </button>
-          <button onClick={() => {router.push('/auth/signup')}} className="mt-5 flex items-center justify-center w-full">¿No tienes cuenta?</button>
+            
+            {/* Botón de redirección al login */}
+            <button onClick={() => { router.push('/auth/login') }} className="mt-5 flex items-center justify-center w-full">
+              ¿Ya tienes cuenta?
+            </button>
         </form>
+
+        {/* Imagen o contenido adicional */}
         <Image width={600} height={600} src="https://todoist.b-cdn.net/assets/images/44245fc51c3e2ab05ee6d92c13e2e08a.png" alt="Todoist" />
       </div>
     </div>
