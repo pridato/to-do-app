@@ -49,4 +49,26 @@ public class UserService {
             return restMessage;
         }
     }
+
+    /**
+     * metodo para registrar usuario
+     * @param user el usuario a crear sin id
+     * @return
+     */
+    public RestMessage signup(User user) {
+        System.out.println(user);
+        RestMessage restMessage = new RestMessage();
+        try {
+            userRepository.save(user);
+            restMessage.setMessage("Usuario registrado");
+            restMessage.setCode(200);
+            logger.info("Usuario registrado");
+            return restMessage;
+        } catch (Exception e) {
+            logger.error("Error al registrar usuario", e);
+            restMessage.setCode(500);
+            restMessage.setMessage("Error al registrar usuario");
+            return restMessage;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 export interface User {
-  id: number;
+  id?: number;
   email: string;
-  passwordHash: string;
+  password_hash: string;
   verified: boolean;
   verificationCode?: string | null;
   createdAt: Date;

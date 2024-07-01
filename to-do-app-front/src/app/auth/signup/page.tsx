@@ -6,6 +6,7 @@ import { signUp } from "@/app/services/userService";
 import { useRouter } from 'next/navigation';
 import useUserStore from "@/app/context/userStore";
 import useToastService from "@/app/services/toastService";
+import { User } from "@/app/model/user";
 
 export default function SignUp() {
   const { addUser } = useUserStore();
@@ -56,11 +57,21 @@ export default function SignUp() {
       return;
     }
 
-    signUp({ username, email, password }) // Llama a la función de registro con username, email y password
+    const user: User = {
+      username: username,
+      email: email,
+      password_hash: password,
+      createdAt: new Date(),
+      verified: false
+    };
+
+    console.log(user)
+
+    signUp(user) // Llama a la función de registro con username, email y password
       .then((response) => {
         addUser(response.data);
         localStorage.setItem('user', JSON.stringify(response.data));
-        router.push('/app');
+        router.push('/auth/login');
       })
       .catch((error) => {
         if (error?.response?.data?.message) {

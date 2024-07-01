@@ -2,6 +2,7 @@ import axios from 'axios';
 import { LoginData } from '../model/loginData';
 import { userServiceUrl } from '../consts';
 import { RestMessage } from '../model/restMessage';
+import { User } from '../model/user';
 
 /**
  * metodo para accionar el login del usuario
@@ -18,8 +19,7 @@ export const login = async (data: LoginData): Promise<RestMessage> => {
  * @param data email, password, username del usuario
  * @returns promesa con el mensaje de respuesta, o trae error directamente de la api o el propio usuario entero
  */
-export const signUp = async ({username:user, data: LoginData}:any): Promise<RestMessage> => {
-  const data = { user, ...LoginData}
-  const response = await axios.post(`${userServiceUrl}/signup`, data)
+export const signUp = async (user:User): Promise<RestMessage> => {
+  const response = await axios.post(`${userServiceUrl}/signup`, user)
   return response.data
 }
