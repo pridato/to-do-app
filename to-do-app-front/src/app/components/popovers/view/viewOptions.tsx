@@ -4,6 +4,7 @@ import { GroupByOptions } from "@/app/enums/optionsView/groupByOptions";
 import { OrderByOptions } from "@/app/enums/optionsView/orderByOptions";
 import { PriorityOptions } from "@/app/enums/optionsView/priorityOptions";
 import { PopoverArrow, PopoverContent } from "@chakra-ui/react";
+import i18next from "i18next";
 import { useEffect, useState } from "react";
 
 interface ViewOptionsProps {
@@ -41,7 +42,7 @@ export default function ViewOptions(props: ViewOptionsProps) {
       <div className="flex flex-col ">
         {selectedoption.map(option => (
           <button key={option + '1'} className="px-2 py-1 rounded-md hover:bg-gray-100 flex items-start justify-start">
-            {option}
+            {i18next.t(option)}
           </button>
         ))}
       </div>
